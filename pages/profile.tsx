@@ -11,6 +11,7 @@ export default function Profile() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [message, setMessage] = useState<string | null>(null);
 
   const handleGenreChange = (genre: string) => {
     setSelectedGenres((prev) =>
@@ -18,9 +19,27 @@ export default function Profile() {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission (e.g., save user details and genres)
+
+    try {
+      const response = await fetch('/api/updateProfile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, genres: selectedGenres }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setMessage('Profile updated successfully!');
+      } else {
+        setMessage('Failed to update profile.');
+      }
+    } catch (error) {
+      setMessage('An error occurred.');
+    }
   };
 
   return (
@@ -88,6 +107,7 @@ export default function Profile() {
             >
               Save Changes
             </button>
+            {message && <p className="mt-4 text-center text-red-500">{message}</p>}
           </form>
         </div>
       </main>
