@@ -1,6 +1,6 @@
 // pages/auth/signup.tsx
-import Head from 'next/head';
 import Link from 'next/link';
+import Head from 'next/head';
 
 export default function Signup() {
   return (
@@ -32,8 +32,8 @@ export default function Signup() {
         </form>
         <p className="text-gray-400 text-center mt-4">
           Already have an account?{' '}
-          <Link href="/auth/login" className="text-red-600 hover:underline">
-            Log in
+          <Link href="/auth/login">
+            <a className="text-red-600 hover:underline">Log in</a>
           </Link>
         </p>
       </div>

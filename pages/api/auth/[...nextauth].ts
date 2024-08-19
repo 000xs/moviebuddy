@@ -1,29 +1,40 @@
-// pages/api/auth/[...nextauth].ts
-import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 export default NextAuth({
   providers: [
-    Providers.Credentials({
-      // The name to display on the sign-in form (e.g., "Sign in with...")
-      name: "Credentials",
-      credentials: {
-        username: { label: "Username", type: "text" },
-        password: { label: "Password", type: "password" },
-      },
+    CredentialsProvider({
       async authorize(credentials) {
-        // Here, you should look up the user in your DB and verify the credentials
-        if (credentials.username === "user" && credentials.password === "pass") {
-          // If the login is successful, return the user object
-          return { id: 1, name: "User", email: "user@example.com" };
+        // Replace with your actual authentication logic
+        // Example: hardcoded user for demonstration
+        const user = { id: '1', name: 'John Doe', email: 'john@example.com' };
+
+        // Validate credentials here (e.g., check against a user list or external service)
+        if (credentials.email === user.email && credentials.password === 'password') {
+          return user;
+        } else {
+          throw new Error('Invalid credentials');
         }
-        // If login fails, return null
-        return null;
-      },
-    }),
+      }
+    })
   ],
   pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signout",
+    signIn: '/auth/login',
+    signOut: '/auth/logout',
+    error: '/auth/error',
+    verifyRequest: '/auth/verify-request',
+    newAccount: '/auth/new-account'
+  },
+  callbacks: {
+    async session({ session, token }) {
+      session.user = token.user;
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    }
   },
 });
