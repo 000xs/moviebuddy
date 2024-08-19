@@ -1,5 +1,6 @@
 // pages/index.tsx
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -15,9 +16,9 @@ export default function Home() {
           <h1 className="text-3xl font-extrabold text-red-600">MovieBuddy</h1>
           <nav>
             <ul className="flex space-x-6">
-              <li><a href="/" className="hover:text-red-600 transition duration-300">Home</a></li>
-              <li><a href="/profile" className="hover:text-red-600 transition duration-300">Profile</a></li>
-              <li><a href="/recommendations" className="hover:text-red-600 transition duration-300">Recommendations</a></li>
+              <li><Link href="/" className="hover:text-red-600 transition duration-300">Home</Link></li>
+              <li><Link href="/auth/login" className="hover:text-red-600 transition duration-300">Login</Link></li>
+              <li><Link href="/auth/signup" className="hover:text-red-600 transition duration-300">Sign Up</Link></li>
             </ul>
           </nav>
         </div>
@@ -28,12 +29,16 @@ export default function Home() {
           <h2 className="text-4xl font-bold mb-4">Welcome to MovieBuddy!</h2>
           <p className="text-lg mb-6">Your go-to app for personalized movie recommendations.</p>
           <div className="flex space-x-4">
-            <button className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded transition duration-300">
-              Get Started
-            </button>
-            <button className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded transition duration-300">
-              Learn More
-            </button>
+            <Link href="/auth/signup">
+              <button className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded transition duration-300">
+                Get Started
+              </button>
+            </Link>
+            <Link href="/auth/login">
+              <button className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded transition duration-300">
+                Login
+              </button>
+            </Link>
           </div>
         </section>
 
