@@ -50,7 +50,7 @@ export default function Login() {
           <button type="submit" className="w-full bg-red-600 p-2 rounded-lg text-white">Login</button>
         </form>
         <p className="mt-4">
-          Don't have an account? <Link href="/auth/register" className="text-red-600">Sign Up</Link>
+          Don&apos;t have an account? <Link href="/auth/register" className="text-red-600">Sign Up</Link>
         </p>
       </div>
     </div>

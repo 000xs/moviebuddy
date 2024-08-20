@@ -1,8 +1,19 @@
 // pages/auth/signin.tsx
 import { getProviders, signIn } from "next-auth/react";
 import Head from "next/head";
+// Define the type for the provider
+interface Provider {
+  id: string;
+  name: string;
+  type: string;
+}
 
-export default function SignIn({ providers }) {
+// Define the type for props
+interface SignInProps {
+  providers: Provider[];
+}
+
+export default function SignIn({ providers }: SignInProps) {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center">
       <Head>
