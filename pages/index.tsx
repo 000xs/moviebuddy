@@ -38,17 +38,19 @@ export default function Home({ movies }: HomePageProps) {
         <h2 className="text-3xl font-bold text-red-600 mb-6">Popular Movies</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {movies.map((movie) => (
-            <div key={movie.id} className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                className="w-full h-64 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold text-red-600">{movie.title}</h3>
-                <p className="text-gray-300 mt-2">{movie.overview}</p>
+            <Link key={movie.id} href={`/movie/${movie.id}`} className="hover:scale-105 transition transform duration-300">
+              <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer">
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  className="w-full h-64 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold text-red-600">{movie.title}</h3>
+                  <p className="text-gray-300 mt-2">{movie.overview}</p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </main>
