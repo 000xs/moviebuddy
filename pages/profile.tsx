@@ -6,11 +6,18 @@ const genres = [
   'Action', 'Comedy', 'Drama', 'Fantasy', 'Horror', 'Romance', 'Sci-Fi', 'Thriller'
 ];
 
+// Mock data for user's watchlist
+const initialWatchlist = [
+  { id: 1, title: 'Inception', poster_path: '/qJ2tW6WMUDux911r6m7haRef0WH.jpg' },
+  { id: 2, title: 'The Matrix', poster_path: '/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg' },
+];
+
 export default function Profile() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [message, setMessage] = useState<string | null>(null);
+  const [watchlist, setWatchlist] = useState(initialWatchlist);
 
   const handleGenreChange = (genre: string) => {
     setSelectedGenres((prev) =>
@@ -41,6 +48,10 @@ export default function Profile() {
     }
   };
 
+  const handleRemoveFromWatchlist = (id: number) => {
+    setWatchlist((prev) => prev.filter((movie) => movie.id !== id));
+  };
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
       <Head>
@@ -55,6 +66,7 @@ export default function Profile() {
               <li><Link href="/auth/login" className="hover:text-red-600 transition duration-300">Login</Link></li>
               <li><Link href="/auth/signup" className="hover:text-red-600 transition duration-300">Sign Up</Link></li>
               <li><Link href="/profile" className="hover:text-red-600 transition duration-300">Profile</Link></li>
+              <li><Link href="/watchlist" className="hover:text-red-600 transition duration-300">Watchlist</Link></li>
             </ul>
           </nav>
         </div>
@@ -108,6 +120,26 @@ export default function Profile() {
             </button>
             {message && <p className="mt-4 text-center text-red-500">{message}</p>}
           </form>
+        </div>
+
+        <div className="bg-gray-900 p-8 mt-10 rounded-lg shadow-lg max-w-lg mx-auto">
+          <h2 className="text-3xl font-bold text-red-600 mb-6">Your Watchlist</h2>
+          <ul className="space-y-4">
+            {watchlist.map((movie) => (
+              <li key={movie.id} className="flex justify-between items-center bg-gray-800 p-4 rounded-lg">
+                <Link href={`/movie/${movie.id}`} className="flex items-center space-x-4">
+                  <img src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`} alt={movie.title} className="w-16 h-24 rounded" />
+                  <span className="text-xl text-white">{movie.title}</span>
+                </Link>
+                <button
+                  onClick={() => handleRemoveFromWatchlist(movie.id)}
+                  className="bg-red-600 hover:bg-red-700 text-white py-1 px-3 rounded transition duration-300"
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       </main>
 
