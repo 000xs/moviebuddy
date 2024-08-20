@@ -30,7 +30,7 @@ export default function Watchlist() {
       <header className="bg-gray-900 p-4 shadow-md">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-3xl font-extrabold text-red-600">MovieBuddy</h1>
-          <nav>
+          <nav aria-label="Main navigation">
             <ul className="flex space-x-6">
               <li><Link href="/" className="hover:text-red-600 transition duration-300">Home</Link></li>
               <li><Link href="/auth/login" className="hover:text-red-600 transition duration-300">Login</Link></li>
@@ -60,7 +60,7 @@ export default function Watchlist() {
                 <button
                   onClick={() => handleRemoveFromWatchlist(movie.id)}
                   className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition duration-300"
-                  aria-label="Remove from Watchlist"
+                  aria-label={`Remove ${movie.title} from Watchlist`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
